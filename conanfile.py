@@ -19,12 +19,11 @@ from conan.tools.build import check_min_cppstd
 import os
 
 
-required_conan_version = ">=2.0.6"
+required_conan_version = ">=2.0.14"
 
 
 class libhal___device___conan(ConanFile):
     name = "libhal-__device__"
-    version = "0.0.1"
     license = "Apache-2.0"
     url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/libhal/libhal-__device__"
@@ -47,23 +46,20 @@ class libhal___device___conan(ConanFile):
             "apple-clang": "14.0.0"
         }
 
-    @property
-    def _bare_metal(self):
-        return self.settings.os == "baremetal"
-
     def validate(self):
         if self.settings.get_safe("compiler.cppstd"):
             check_min_cppstd(self, self._min_cppstd)
 
     def build_requirements(self):
         self.tool_requires("cmake/3.27.1")
-        self.tool_requires("libhal-cmake-util/3.0.1")
-        self.test_requires("libhal-mock/[^2.0.1]")
+        self.tool_requires("libhal-cmake-util/4.0.2")
+
         self.test_requires("boost-ext-ut/1.1.9")
+        self.test_requires("libhal-mock/[^3.0.0]")
 
     def requirements(self):
-        self.requires("libhal/[^2.0.3]", transitive_headers=True)
-        self.requires("libhal-util/[^3.0.1]")
+        self.requires("libhal/[^3.0.0]", transitive_headers=True)
+        self.requires("libhal-util/[^4.0.0]")
 
     def layout(self):
         cmake_layout(self)
