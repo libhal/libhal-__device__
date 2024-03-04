@@ -13,7 +13,6 @@
 // limitations under the License.
 
 #include <libhal-__device__/__device__.hpp>
-#include <libhal/error.hpp>
 
 int main()
 {

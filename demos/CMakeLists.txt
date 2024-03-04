@@ -22,14 +22,7 @@ libhal_build_demos(
 
   PACKAGES
   libhal-__device__
-  prebuilt-picolibc
 
   LINK_LIBRARIES
   libhal::__device__
-  picolibc
-
-  LINK_FLAGS
-  -Wl,--wrap=__cxa_allocate_exception
-  -Wl,--wrap=__cxa_free_exception
-  -Wl,--wrap=__cxa_call_unexpected
 )

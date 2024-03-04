@@ -11,33 +11,14 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
 from conan import ConanFile
-from conan.tools.cmake import CMake, cmake_layout
 
 
 class demos(ConanFile):
-    settings = "compiler", "build_type", "os", "arch"
-    generators = "CMakeToolchain", "CMakeDeps", "VirtualBuildEnv"
-    options = {"platform": ["ANY"]}
-    default_options = {"platform": "unspecified"}
-
-    def build_requirements(self):
-        self.tool_requires("cmake/3.27.1")
-        self.tool_requires("libhal-cmake-util/4.0.2")
+    python_requires = "libhal-bootstrap/[^0.0.4]"
+    python_requires_extend = "libhal-bootstrap.demo"
 
     def requirements(self):
-        self.requires(f"prebuilt-picolibc/{self.settings.compiler.version}")
-        if str(self.options.platform).startswith("lpc40"):
-            self.requires("libhal-lpc40/[^3.0.0]")
+        bootstrap = self.python_requires["libhal-bootstrap"]
+        bootstrap.module.add_demo_requirements(self)
         self.requires("libhal-__device__/[>=0.0.0]")
-        self.requires("libhal-util/[^4.0.0]")
-
-    def layout(self):
-        platform_directory = "build/" + str(self.options.platform)
-        cmake_layout(self, build_folder=platform_directory)
-
-    def build(self):
-        cmake = CMake(self)
-        cmake.configure()
-        cmake.build()
