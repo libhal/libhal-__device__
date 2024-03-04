@@ -23,10 +23,9 @@ struct hardware_map
   hal::serial* console;
   hal::steady_clock* clock;
   hal::callback<void()> reset;
+  // Add more driver interfaces here ...
 };
 
-// Application function must be implemented by one of the compilation units
-// (.cpp) files.
-hal::status application(hardware_map& p_map);
-hal::status initialize_processor();
-hal::result<hardware_map> initialize_platform();
+// Application function is implemented by one of the .cpp files.
+void application(hardware_map& p_map);
+hardware_map initialize_platform();

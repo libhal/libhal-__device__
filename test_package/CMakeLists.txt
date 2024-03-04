@@ -20,9 +20,5 @@ find_package(libhal-__device__ REQUIRED CONFIG)
 add_executable(${PROJECT_NAME} main.cpp)
 target_include_directories(${PROJECT_NAME} PUBLIC .)
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
-
-if(BAREMETAL)
-  target_link_options(${PROJECT_NAME} PRIVATE --oslib=semihost)
-endif()
-
+set_target_properties(${PROJECT_NAME} PROPERTIES CXX_EXTENSIONS OFF)
 target_link_libraries(${PROJECT_NAME} PRIVATE libhal::__device__)

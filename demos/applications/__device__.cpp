@@ -17,7 +17,7 @@
 
 #include "../hardware_map.hpp"
 
-hal::status application(hardware_map& p_map)
+void application(hardware_map& p_map)
 {
   using namespace std::chrono_literals;
   using namespace hal::literals;
@@ -31,6 +31,4 @@ hal::status application(hardware_map& p_map)
     hal::delay(clock, 500ms);
     hal::print(console, "Hello, world\n");
   }
-
-  return hal::success();
 }
