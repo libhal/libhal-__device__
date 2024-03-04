@@ -24,12 +24,4 @@ libhal_test_and_make_library(
   TEST_SOURCES
   tests/__device__.test.cpp
   tests/main.test.cpp
-
-  PACKAGES
-  libhal
-  libhal-util
-
-  LINK_LIBRARIES
-  libhal::libhal
-  libhal::util
 )
