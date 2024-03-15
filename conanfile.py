@@ -21,13 +21,12 @@ required_conan_version = ">=2.0.14"
 class libhal___device___conan(ConanFile):
     name = "libhal-__device__"
     license = "Apache-2.0"
-    url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/libhal/libhal-__device__"
     description = ("A collection of drivers for the __device__")
     topics = ("__device__", "libhal", "driver")
     settings = "compiler", "build_type", "os", "arch"
 
-    python_requires = "libhal-bootstrap/[^0.0.3]"
+    python_requires = "libhal-bootstrap/[^1.0.0]"
     python_requires_extend = "libhal-bootstrap.library"
 
     def requirements(self):

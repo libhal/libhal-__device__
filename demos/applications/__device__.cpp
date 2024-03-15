@@ -17,7 +17,7 @@
 
 #include "../hardware_map.hpp"
 
-void application(hardware_map& p_map)
+void application(hardware_map_t& p_map)
 {
   using namespace std::chrono_literals;
   using namespace hal::literals;
