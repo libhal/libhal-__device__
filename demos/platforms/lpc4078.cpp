@@ -22,7 +22,7 @@
 
 #include "../hardware_map.hpp"
 
-hardware_map initialize_platform()
+hardware_map_t initialize_platform()
 {
   using namespace hal::literals;
 
@@ -41,7 +41,7 @@ hardware_map initialize_platform()
                                   .baud_rate = 115200,
                                 });
 
-  return hardware_map{
+  return {
     .console = &uart0,
     .clock = &counter,
     .reset = []() { hal::cortex_m::reset(); },
