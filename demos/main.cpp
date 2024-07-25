@@ -12,21 +12,46 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <libhal-exceptions/control.hpp>
+#include <libhal-util/steady_clock.hpp>
 #include <libhal/error.hpp>
 
-#include "hardware_map.hpp"
+#include "resource_list.hpp"
 
-hardware_map_t hardware_map{};
+resource_list resources{};
+
+[[noreturn]] void terminate_handler() noexcept
+{
+  using namespace std::chrono_literals;
+
+  auto& led = *resources.led;
+  auto& clock = *resources.clock;
+
+  while (true) {
+    led.level(false);
+    hal::delay(clock, 100ms);
+    led.level(true);
+    hal::delay(clock, 100ms);
+    led.level(false);
+    hal::delay(clock, 100ms);
+    led.level(true);
+    hal::delay(clock, 1000ms);
+  }
+}
 
 int main()
 {
+  // Set terminate routine...
+  hal::set_terminate(terminate_handler);
+
   try {
-    hardware_map = initialize_platform();
+    resources = initialize_platform();
   } catch (...) {
+    // Catch all exceptions preventing terminate from
     hal::halt();
   }
 
-  application(hardware_map);
-  hardware_map.reset();
+  application(resources);
+  resources.reset();
   return 0;
 }

@@ -15,20 +15,22 @@
 #include <libhal-util/serial.hpp>
 #include <libhal-util/steady_clock.hpp>
 
-#include "../hardware_map.hpp"
+#include "../resource_list.hpp"
 
-void application(hardware_map_t& p_map)
+void application(resource_list& p_map)
 {
   using namespace std::chrono_literals;
   using namespace hal::literals;
 
   auto& clock = *p_map.clock;
   auto& console = *p_map.console;
+  auto& led = *p_map.led;
 
   hal::print(console, "Demo Application Starting...\n\n");
 
   while (true) {
-    hal::delay(clock, 500ms);
     hal::print(console, "Hello, world\n");
+    led.level(!led.level());  // Toggle LED
+    hal::delay(clock, 500ms);
   }
 }

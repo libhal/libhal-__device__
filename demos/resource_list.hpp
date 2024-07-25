@@ -15,17 +15,19 @@
 #pragma once
 
 #include <libhal/functional.hpp>
+#include <libhal/output_pin.hpp>
 #include <libhal/serial.hpp>
 #include <libhal/steady_clock.hpp>
 
-struct hardware_map_t
+struct resource_list
 {
   hal::serial* console;
   hal::steady_clock* clock;
+  hal::output_pin* led;
   hal::callback<void()> reset;
   // Add more driver interfaces here ...
 };
 
 // Application function is implemented by one of the .cpp files.
-void application(hardware_map_t& p_map);
-hardware_map_t initialize_platform();
+resource_list initialize_platform();
+void application(resource_list& p_map);
