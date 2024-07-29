@@ -53,6 +53,22 @@ This is a [Conan](https://conan.io/) recipe file. Conan is a package manager for
 C and C++ that helps manage dependencies in your project. This file defines how
 Conan should build your project and its dependencies.
 
+This conan file utilizes the
+[`libhal-bootstrap`](https://github.com/libhal/libhal-bootstrap) extension
+library to reduce the amount of replicated code for libhal libraries. This conanfile extends the `libhal-bootstrap.library` class. That class implements:
+
+- `def validate(self)`
+- `def layout(self)`
+- `def generate(self)`
+- `def build(self)`
+- `def package(self)`
+- `def build_requirements(self)`: which adds the tool packages for `cmake`,
+  `libhal-cmake-util`, `libhal-mock`, `boost-ext-ut`
+
+The class methods can be extended by implementing your own. The base class
+implementations simply get called first. The derived class can then extend
+these even further, but in general, most of these should be left untouched.
+
 ### `CMakeList.txt`
 
 The root CMake build script for the library. It contains a call to the
@@ -87,6 +103,27 @@ library. It includes:
   [`libhal_build_demos`](https://github.com/libhal/libhal-cmake-util?tab=readme-ov-file#libhal_test_and_make_library)
   function from
   [`libhal-cmake-util`](https://github.com/libhal/libhal-cmake-util).
+
+The `demos/conanfile.py` utilizes the
+[`libhal-bootstrap`](https://github.com/libhal/libhal-bootstrap) extension
+library and extends the `libhal-bootstrap.demos` class. This class provides the
+basic building blocks for a demo. The requirements from the base class are not
+transitive so:
+
+```python
+bootstrap = self.python_requires["libhal-bootstrap"]
+bootstrap.module.add_demo_requirements(self)
+```
+
+Must be invoked in order to add the appropriate platform libraries to the
+`ConanFile` class. These platform libraries are usually `libhal-lpc40`,
+`libhal-stm32f1` and `libhal-micromod`. Note that bootstrap must be updated to
+support additional platforms. If you attempt to use a profile with a platform
+name outside of what is supported by `libhal-bootstrap` then this API does
+nothing except include `libhal-util`.
+
+Additional requirements and dependencies can be added after calling
+`add_demo_requirements`.
 
 ### `include/libhal-__device__/`
 
