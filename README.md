@@ -50,7 +50,8 @@ conan create . -pr stm32f103c8 -pr arm-gcc-12.3 --version=latest
 
 ## 📋 Adding `libhal-__device__` to your project
 
-Add the following to your `requirements()` method:
+Add the following to your `requirements()` method within your application or
+library's `conanfile.py`:
 
 ```python
     def requirements(self):
@@ -58,6 +59,19 @@ Add the following to your `requirements()` method:
 ```
 
 Replace version `1.0.0` with the desired version of the library.
+
+Assuming you are using CMake, you'll need to find and link the package to your
+executable:
+
+```cmake
+find_package(libhal-__device__ REQUIRED CONFIG)
+target_link_libraries(app.elf PRIVATE libhal::__device__)
+```
+
+Replace `app.elf` with the name of your executable.
+
+The available headers for your app or library will exist in the
+[`include/libhal-__device__/`](./include/libhal-__device__) directory.
 
 ## Contributing
 
