@@ -12,24 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#pragma once
+#include <libhal-micromod/micromod.hpp>
 
-#include <optional>
+#include <resource_list.hpp>
 
-#include <libhal/functional.hpp>
-#include <libhal/output_pin.hpp>
-#include <libhal/serial.hpp>
-#include <libhal/steady_clock.hpp>
-
-struct resource_list
+resource_list initialize_platform()
 {
-  hal::callback<void()> reset;
-  std::optional<hal::serial*> console;
-  std::optional<hal::steady_clock*> clock;
-  std::optional<hal::output_pin*> status_led;
-  // Add more driver interfaces here ...
-};
+  using namespace hal::literals;
 
-// Application function is implemented by one of the .cpp files.
-resource_list initialize_platform();
-void application(resource_list& p_map);
+  hal::micromod::v1::initialize_platform();
+
+  return {
+    .reset = +[]() { hal::micromod::v1::reset(); },
+    .console = &hal::micromod::v1::console(hal::buffer<128>),
+    .clock = &hal::micromod::v1::uptime_clock(),
+    .status_led = &hal::micromod::v1::led(),
+  };
+}

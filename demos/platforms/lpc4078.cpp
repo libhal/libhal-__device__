@@ -45,9 +45,9 @@ resource_list initialize_platform()
   static hal::lpc40::output_pin led(1, 10);
 
   return {
+    .reset = []() { hal::cortex_m::reset(); },
     .console = &uart0,
     .clock = &counter,
-    .led = &led,
-    .reset = []() { hal::cortex_m::reset(); },
+    .status_led = &led,
   };
 }

@@ -22,9 +22,9 @@ void application(resource_list& p_map)
   using namespace std::chrono_literals;
   using namespace hal::literals;
 
-  auto& clock = *p_map.clock;
-  auto& console = *p_map.console;
-  auto& led = *p_map.led;
+  auto& clock = *p_map.clock.value();
+  auto& console = *p_map.console.value();
+  auto& led = *p_map.status_led.value();
 
   hal::print(console, "Demo Application Starting...\n\n");
 
