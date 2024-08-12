@@ -21,14 +21,14 @@
 #include <libhal-lpc40/uart.hpp>
 #include <libhal-util/as_bytes.hpp>
 
-#include "../resource_list.hpp"
+#include <resource_list.hpp>
 
 resource_list initialize_platform()
 {
   using namespace hal::literals;
 
   // Set the MCU to the maximum clock speed
-  hal::lpc40::maximum(10.0_MHz);
+  hal::lpc40::maximum(12.0_MHz);
 
   // Create a hardware counter
   static hal::cortex_m::dwt_counter counter(
