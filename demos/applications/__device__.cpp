@@ -15,7 +15,7 @@
 #include <libhal-util/serial.hpp>
 #include <libhal-util/steady_clock.hpp>
 
-#include "../resource_list.hpp"
+#include <resource_list.hpp>
 
 void application(resource_list& p_map)
 {
