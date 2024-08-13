@@ -12,11 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace hal::__device__ {     // NOLINT
-extern void __device___test();  // NOLINT
-}  // namespace hal::__device__
-
 int main()
 {
-  hal::__device__::__device___test();
+  // Add non-suite tests here that must be called in a specific order.
+  // In general it is bad practice to couple unit tests with each other such
+  // that they need to be executed in order.
 }

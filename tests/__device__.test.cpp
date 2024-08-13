@@ -16,13 +16,12 @@
 
 #include <boost/ut.hpp>
 
-namespace hal::__device__ {  // NOLINT
-void __device___test()       // NOLINT
-{
+namespace hal::__device__ {                // NOLINT
+boost::ut::suite test___device__ = []() {  // NOLINT
   using namespace boost::ut;
   using namespace std::literals;
 
-  "__device__::create()"_test = []() {
+  "__device__::__device__()"_test = []() {
     // Setup
     // Exercise
     // Verify
