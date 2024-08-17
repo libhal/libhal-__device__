@@ -12,13 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <libhal-armcortex/dwt_counter.hpp>
-#include <libhal-armcortex/startup.hpp>
-#include <libhal-armcortex/system_control.hpp>
-#include <libhal-lpc40/clock.hpp>
-#include <libhal-lpc40/constants.hpp>
-#include <libhal-lpc40/output_pin.hpp>
-#include <libhal-lpc40/uart.hpp>
+#include <libhal-arm-mcu/dwt_counter.hpp>
+#include <libhal-arm-mcu/lpc40/clock.hpp>
+#include <libhal-arm-mcu/lpc40/constants.hpp>
+#include <libhal-arm-mcu/lpc40/output_pin.hpp>
+#include <libhal-arm-mcu/lpc40/uart.hpp>
+#include <libhal-arm-mcu/startup.hpp>
+#include <libhal-arm-mcu/system_control.hpp>
 #include <libhal-util/as_bytes.hpp>
 
 #include <resource_list.hpp>
@@ -35,7 +35,7 @@ resource_list initialize_platform()
     hal::lpc40::get_frequency(hal::lpc40::peripheral::cpu));
 
   static std::array<hal::byte, 64> uart0_buffer{};
-  // Get and initialize UART0 for UART based logging
+
   static hal::lpc40::uart uart0(0,
                                 uart0_buffer,
                                 hal::serial::settings{
