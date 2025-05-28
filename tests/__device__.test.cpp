@@ -23,6 +23,7 @@ boost::ut::suite test___device__ = []() {  // NOLINT
 
   "__device__::__device__()"_test = []() {
     // Setup
+    [[maybe_unused]] hal::__device__::__device___replace_me bar;
     // Exercise
     // Verify
   };
