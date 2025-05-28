@@ -1,4 +1,4 @@
-// Copyright 2024 Khalil Estell
+// Copyright 2024 - 2025 Khalil Estell and the libhal contributors
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -23,6 +23,7 @@ boost::ut::suite test___device__ = []() {  // NOLINT
 
   "__device__::__device__()"_test = []() {
     // Setup
+    [[maybe_unused]] hal::__device__::__device___replace_me bar;
     // Exercise
     // Verify
   };
