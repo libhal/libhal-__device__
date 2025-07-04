@@ -38,3 +38,6 @@ class libhal___device___conan(ConanFile):
     def package_info(self):
         self.cpp_info.libs = ["libhal-__device__"]
         self.cpp_info.set_property("cmake_target_name", "libhal::__device__")
+
+    def package_id(self):
+        self.info.python_requires.major_mode()
